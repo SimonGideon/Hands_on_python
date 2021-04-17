@@ -236,3 +236,9 @@ valedictorian = ma((student.gpa, student.name) for student in graduates)
 data = 'golf'
 list(data[i] for i  in range(len(data)-1, -1, -1))
 
+
+
+
+print("\n")
+
+
