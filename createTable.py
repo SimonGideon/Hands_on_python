@@ -5,8 +5,8 @@ from psycopg2 import OperationalError
 def test_connection():
     try:
         conn = psycopg2.connect(database="datacamp_courses",
-                                user="simon",
-                                password="password",
+                                user="",
+                                password="",
                                 host="localhost",
                                 port="5432")
         print("Connection to PostgreSQL successful")
