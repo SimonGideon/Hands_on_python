@@ -6,7 +6,7 @@ def test_connection():
     try:
         conn = psycopg2.connect(database="datacamp_courses",
                                 user="",
-                                password="",
+                                password="password",
                                 host="localhost",
                                 port="5432")
         print("Connection to PostgreSQL successful")
