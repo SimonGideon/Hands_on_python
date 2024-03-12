@@ -1,0 +1,2 @@
+ls: cannot access 'grep': No such file or directory
+ls: cannot access 'sales': No such file or directory

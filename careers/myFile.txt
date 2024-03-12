@@ -1,0 +1,7 @@
+ A new string on File.
+This is the list fo fruits in the market.
+1. Banana - There are several different totlas wwithin the ,arket that can be used to edit files. The two months of caltivation 
+2. Oranges - Open a file on nano you must
+3. This text was added through nano.
+3. Inverted v is ctl
+
