@@ -7,19 +7,6 @@ DOWNLOAD_DIR="/home/simon/Downloads"
 # Activate the virtual environment
 source $BASE_DIR/venv/bin/activate
 
-# Install dependencies
-echo "Installing dependencies..."
-pip install pandas openpyxl pdfkit
-
-# Check if wkhtmltopdf is installed, if not, install it
-if ! command -v wkhtmltopdf &> /dev/null; then
-    echo "wkhtmltopdf is not installed. Installing now..."
-    sudo apt-get update
-    sudo apt-get install -y wkhtmltopdf
-else
-    echo "wkhtmltopdf is already installed."
-fi
-
 # Absolute path to the Python script
 PYTHON_SCRIPT="$BASE_DIR/csv_pdf.py"
 

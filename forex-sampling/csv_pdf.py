@@ -4,7 +4,7 @@ from openpyxl.worksheet.page import PageMargins, PrintOptions
 import pdfkit
 import os
 import sys
-import subprocess
+from multiprocessing import Pool
 
 def convert_csv_to_pdf(csv_path):
     # Get the name of the CSV file without extension
@@ -53,29 +53,30 @@ def convert_csv_to_pdf(csv_path):
     if not os.path.exists(pdf_directory):
         os.makedirs(pdf_directory)
 
-    # check if file already exists
     pdf_filename = f'{pdf_directory}/{initial_name}.pdf'
-    file_count = 1
-    while os.path.exists(pdf_filename):
-        initial_name = f'{csv_filename}_Conversion_{file_count}'
-        pdf_filename = f'{pdf_directory}/{initial_name}.pdf'
-        file_count += 1
-
     pdfkit_config = pdfkit.configuration(wkhtmltopdf='/usr/bin/wkhtmltopdf')
     pdfkit.from_file(html_filename, pdf_filename, configuration=pdfkit_config)
 
     # Delete the HTML file
     os.remove(html_filename)
-
+    
     print(f'File {initial_name}.pdf created successfully')
-    return pdf_directory
+
+def process_csv_files(csv_files):
+    with Pool() as pool:
+        pool.map(convert_csv_to_pdf, csv_files)
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python3 convert_csv_to_pdf.py <csv_path>")
+        print("Usage: python3 convert_csv_to_pdf.py <folder_path>")
         sys.exit(1)
 
-    csv_path = sys.argv[1]
-    pdf_directory = convert_csv_to_pdf(csv_path)
-    subprocess.Popen(["xdg-open", pdf_directory])
-    sys.exit(0)
+    folder_path = sys.argv[1]
+    csv_files = [os.path.join(folder_path, f) for f in os.listdir(folder_path) if f.endswith('.csv')]
+    
+    if not csv_files:
+        print("No CSV files found in the specified folder.")
+        sys.exit(1)
+
+    process_csv_files(csv_files)
+    print("Conversion process completed.")
